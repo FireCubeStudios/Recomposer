@@ -10,29 +10,29 @@ public class Challenge {
     /// Post conditions: Return a recomposed string
     /// @param str - first int to add
     /// @return str with all vowel/consonant groups swapped and split by the capital case
-	public static String recompose(String str)
+    public static String recompose(String str)
     {
-        String recomposedString = "";
-        String group = "";
-        boolean wasVowel = isVowel(str.charAt(0)); //Sets character type for first character
-		for(int i = 0; i < str.length(); i++)
+      String recomposedString = "";
+      String group = "";
+      boolean wasVowel = isVowel(str.charAt(0)); //Sets character type for first character
+      for(int i = 0; i < str.length(); i++)
+      {
+        if(isVowel(str.charAt(i)) == wasVowel) //Checks if character type is same as previous character
         {
-          if(isVowel(str.charAt(i)) == wasVowel) //Checks if character type is same as previous character
-          {
-            group = group + str.charAt(i);
-            wasVowel = isVowel(str.charAt(i));
-          }
-          else
-          {
-            recomposedString = recomposedString + reverseString(group);
-            group = "";
-            group = group + str.charAt(i);
-            wasVowel = isVowel(str.charAt(i));
-          }
+          group = group + str.charAt(i);
+          wasVowel = isVowel(str.charAt(i));
         }
-        recomposedString = recomposedString + reverseString(group); //This adds the final group which is not covered in the while loop
-        return splitCase(recomposedString);
-	}
+        else
+        {
+          recomposedString = recomposedString + reverseString(group);
+          group = "";
+          group = group + str.charAt(i);
+          wasVowel = isVowel(str.charAt(i));
+        }
+      }
+      recomposedString = recomposedString + reverseString(group); //This adds the final group which is not covered in the while loop
+      return splitCase(recomposedString);
+    }
 
     /// Reverses all the characters in a string
     /// Pre-conditions: Must be a string
@@ -41,12 +41,12 @@ public class Challenge {
     /// @return reversed str
     public static String reverseString(String str)
     {
-        String reversedString = "";
-        for (int i = 0; i < str.length(); i++)
-        {
-            reversedString = str.charAt(i) + reversedString;
-        }
-        return reversedString;
+      String reversedString = "";
+      for (int i = 0; i < str.length(); i++)
+      {
+          reversedString = str.charAt(i) + reversedString;
+      }
+      return reversedString;
     }
 
     /// Adds a space before capital cases in a string
@@ -55,9 +55,9 @@ public class Challenge {
     /// @param str - The string to add spaces before capital cases
     /// @return str with spaces before each capital case
     public static String splitCase(String str)
-	{
-        return Pattern.compile("(.)([A-Z])", Pattern.MULTILINE).matcher(str).replaceAll("$1 $2");
-	}
+    {
+      return Pattern.compile("(.)([A-Z])", Pattern.MULTILINE).matcher(str).replaceAll("$1 $2");
+    }
 
     /// Checks if a character is a vowel
     /// Pre-conditions: Must be a string
@@ -65,7 +65,7 @@ public class Challenge {
     /// @param c - The character which will be checked
     /// @return a new boolean with true if vowel or false if consonant
     public static boolean isVowel(char c)
-	{
-        return Pattern.compile("^[aeiouy]$", Pattern.CASE_INSENSITIVE).matcher(Character.toString(c)).find();
-	}
+    {
+      return Pattern.compile("^[aeiouy]$", Pattern.CASE_INSENSITIVE).matcher(Character.toString(c)).find();
+    }
 }
